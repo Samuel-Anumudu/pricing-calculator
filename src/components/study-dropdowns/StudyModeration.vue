@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, toRef, watch } from 'vue'
 import type { PropType } from 'vue'
 
 export default defineComponent({
@@ -20,16 +20,29 @@ export default defineComponent({
     initialStudyModeration: {
       type: String as PropType<string>,
       default: ''
+    },
+    servicePlan: {
+      type: String as PropType<string>,
+      required: true
     }
   },
 
   emits: ['updateStudyModeration'],
   setup(props, { emit }) {
     const studyModerationSelected = ref<string>(props.initialStudyModeration)
+    const servicePlanRef = toRef(props, 'servicePlan')
 
     const updateStudyModeration = () => {
       emit('updateStudyModeration', studyModerationSelected.value)
     }
+
+    watch(servicePlanRef, (newServicePlan) => {
+      if (newServicePlan === 'premium') {
+        studyModerationSelected.value = 'Kimoyo moderates'
+      } else {
+        studyModerationSelected.value = ''
+      }
+    })
 
     return { updateStudyModeration, studyModerationSelected }
   }

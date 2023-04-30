@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, toRef, watch } from 'vue'
 import type { PropType } from 'vue'
 export default defineComponent({
   name: 'ProjectManagement',
@@ -24,15 +24,28 @@ export default defineComponent({
     initialSelect: {
       type: String as PropType<string>,
       default: ''
+    },
+    servicePlan: {
+      type: String as PropType<string>,
+      required: true
     }
   },
   emits: ['updateSelected'],
   setup(props, { emit }) {
     const projectManagementSelected = ref<string>(props.initialSelect)
+    const servicePlanRef = toRef(props, 'servicePlan')
 
     const updateProjectManagementSelected = () => {
       emit('updateSelected', projectManagementSelected.value)
     }
+
+    watch(servicePlanRef, (newServicePlan) => {
+      if (newServicePlan === 'premium') {
+        projectManagementSelected.value = 'I need help preparing discussion guide'
+      } else {
+        projectManagementSelected.value = ''
+      }
+    })
     return { projectManagementSelected, updateProjectManagementSelected }
   }
 })

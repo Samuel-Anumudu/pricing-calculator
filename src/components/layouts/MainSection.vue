@@ -33,24 +33,28 @@
         />
 
         <StudyModeration
+          :servicePlan="servicePlan"
           :initialStudyModeration="studyModerationSelected"
           @updateStudyModeration="onUpdateStudyModeration"
           :key="resetInstance"
         />
 
         <ProjectManagement
+          :servicePlan="servicePlan"
           :initialSelect="projectManagementSelected"
           @updateSelected="onUpdateSelectedProjectManagement"
           :key="resetInstance"
         />
 
         <StudyTranscript
+          :servicePlan="servicePlan"
           :initialSelect="studyTranscriptSelected"
           @updateSelected="onUpdateStudyTranscript"
           :key="resetInstance"
         />
 
         <StudyReport
+          :servicePlan="servicePlan"
           :initialSelect="studyReportSelected"
           @updateStudyReport="onUpdateStudyReport"
           :key="resetInstance"
@@ -60,7 +64,6 @@
       </form>
     </section>
 
-    <!-- Refactor this into a component later: beginning line -->
     <section id="cost-section">
       <div class="total-cost">
         <p>Total Cost</p>
@@ -73,87 +76,40 @@
         </p>
         <p v-else>Based on your study selection on our {{ servicePlan }} plan</p>
 
-        <div class="selections">
-          <ul class="selected-countries-list">
-            <li v-show="selectedCountries.length !== 0">
-              {{ selectedCountries.length }}
-              {{ selectedCountries.length < 2 ? 'country' : 'countries' }} -
-              <span v-for="(country, index) in selectedCountries" :key="index">{{
-                (index ? ', ' : '') + country
-              }}</span>
-            </li>
-          </ul>
-
-          <ul class="selected-number-of-participants">
-            <li v-show="numberOfparticipants">
-              {{ numberOfparticipants }} + {{ additionalParticipants }} additional participants
-            </li>
-          </ul>
-
-          <ul class="selected-study-session">
-            <li v-show="duration">{{ duration }} minutes study session</li>
-          </ul>
-
-          <ul class="selected-study-structure">
-            <li v-show="selectedStudyStructure">{{ selectedStudyStructure }}</li>
-          </ul>
-
-          <ul class="selected-study-moderation">
-            <li v-show="studyModerationSelected">{{ studyModerationSelected }}</li>
-          </ul>
-
-          <ul class="selected-project-management">
-            <li v-show="projectManagementSelected">
-              {{
-                projectManagementSelected === 'I will prepare my discussion guide'
-                  ? 'Project management & discussion guide preparation not needed'
-                  : 'Project management & discussion guide preparation needed'
-              }}
-            </li>
-          </ul>
-
-          <ul class="selected-study-transcript">
-            <li v-show="studyTranscriptSelected">
-              {{
-                studyTranscriptSelected === 'I will need transcripts'
-                  ? 'Transcripts needed'
-                  : 'No transcripts needed'
-              }}
-            </li>
-          </ul>
-
-          <ul class="selected-study-report">
-            <li v-show="studyReportSelected">
-              {{
-                studyReportSelected === 'I will need a study report'
-                  ? 'Need study report and analysis'
-                  : 'No study report and analysis needed'
-              }}
-            </li>
-          </ul>
-        </div>
+        <StudySummaryList
+          :selectedCountries="selectedCountries"
+          :numberOfParticipants="numberOfParticipants"
+          :additionalParticipants="additionalParticipants"
+          :duration="duration"
+          :selectedStudyStructure="selectedStudyStructure"
+          :studyModerationSelected="studyModerationSelected"
+          :projectManagementSelected="projectManagementSelected"
+          :studyTranscriptSelected="studyTranscriptSelected"
+          :studyReportSelected="studyReportSelected"
+        />
       </div>
     </section>
-    <!-- Refactor this into a component later: ending line -->
   </main>
 </template>
 
 <script lang="ts">
-import ServicePlans from '@/components/service-plans/ServicePlans.vue'
-import ParticipantsCountries from '@/components/countries/ParticipantsCountries.vue'
-import NumberOfParticipants from '@/components/participants/NumberOfParticipants.vue'
-import StudyDuration from '@/components/dropdowns/StudyDuration.vue'
-import StudyStructure from '@/components/dropdowns/StudyStructure.vue'
-import StudyModeration from '@/components/dropdowns/StudyModeration.vue'
-import ProjectManagement from '@/components/dropdowns/ProjectManagement.vue'
-import StudyTranscript from '@/components/dropdowns/StudyTranscript.vue'
-import StudyReport from '@/components/dropdowns/StudyReport.vue'
+import ServicePlans from '@/components/service-plan-radios/ServicePlans.vue'
+import ParticipantsCountries from '@/components/country-checkboxes/ParticipantsCountries.vue'
+import NumberOfParticipants from '@/components/participant-numbers/NumberOfParticipants.vue'
+import StudyDuration from '@/components/study-dropdowns/StudyDuration.vue'
+import StudyStructure from '@/components/study-dropdowns/StudyStructure.vue'
+import StudyModeration from '@/components/study-dropdowns/StudyModeration.vue'
+import ProjectManagement from '@/components/study-dropdowns/ProjectManagement.vue'
+import StudyTranscript from '@/components/study-dropdowns/StudyTranscript.vue'
+import StudyReport from '@/components/study-dropdowns/StudyReport.vue'
+import StudySummaryList from '@/components/study-summary-list/StudySummaryList.vue'
 import ResetButton from '@/components/ui/ResetButton.vue'
 
 import { defineComponent, ref, computed, watch, watchEffect } from 'vue'
 export default defineComponent({
   name: 'MainSection',
   components: {
+    StudySummaryList,
     ServicePlans,
     ParticipantsCountries,
     NumberOfParticipants,
@@ -174,7 +130,7 @@ export default defineComponent({
     // Unmount the instance of components when there's a reset
     const resetInstance = ref(0)
     // Number of participantss inputs
-    const numberOfparticipants = ref<number | null>(null)
+    const numberOfParticipants = ref<number | null>(null)
     const additionalParticipants = ref<number | null>(null)
     // List of countries
     const countries = ref(['Nigeria', 'Ghana', 'Senegal', 'South Africa', 'Kenya'])
@@ -225,103 +181,148 @@ export default defineComponent({
     }
 
     const onInputsUpdated = (values: {
-      numberOfparticipants: number
+      numberOfParticipants: number
       additionalParticipants: number
     }) => {
-      numberOfparticipants.value = values.numberOfparticipants
+      numberOfParticipants.value = values.numberOfParticipants
       additionalParticipants.value = values.additionalParticipants
     }
 
     const resetFields = () => {
       resetInstance.value += 1
-      servicePlan.value = ''
-      duration.value = ''
-      selectedStudyStructure.value = ''
-      studyModerationSelected.value = ''
-      studyTranscriptSelected.value = ''
-      studyReportSelected.value = ''
-      projectManagementSelected.value = ''
-      numberOfparticipants.value = null
-      additionalParticipants.value = null
+      servicePlan.value =
+        duration.value =
+        selectedStudyStructure.value =
+        studyModerationSelected.value =
+        studyTranscriptSelected.value =
+        studyReportSelected.value =
+        projectManagementSelected.value =
+          ''
+      numberOfParticipants.value = additionalParticipants.value = null
       selectedCountries.value = []
     }
 
     // Computed Calculations
-    const countryCost = computed(() => {
-      return selectedCountries.value.length * 1
+    const countryCost = computed((): number => {
+      const multiplier =
+        servicePlan.value === 'standard' ? 2 : servicePlan.value === 'premium' ? 3 : 1
+      return selectedCountries.value.length * multiplier
     })
 
-    const durationCost = computed((value: number) => {
+    /*
+    VERSION 2
+   const countryCost = computed((): number => {
+     if (servicePlan.value === 'standard') {
+       return selectedCountries.value.length * 2
+     } else if (servicePlan.value === 'premium') {
+       return selectedCountries.value.length * 3
+     } else return selectedCountries.value.length * 1
+   })
+    */
+
+    const durationCost = computed((): number => {
+      let durationMultiplier = 0
+      const participants = numberOfParticipants.value! + additionalParticipants.value!
       if (duration.value) {
-        let allParticipants: number = numberOfparticipants.value! + additionalParticipants.value!
-        if (duration.value === '30') {
-          value = Math.round(0.5 * allParticipants)
-        } else if (duration.value === '60') {
-          value = Math.round(1 * allParticipants)
-        } else if (duration.value === '90') {
-          value = Math.round(1.5 * allParticipants)
+        durationMultiplier = duration.value === '30' ? 0.5 : duration.value === '60' ? 1 : 1.5
+      }
+      const planMultiplier = servicePlan.value === 'standard' ? 2 : 1
+      return Math.round(durationMultiplier * planMultiplier * participants)
+    })
+
+    /*
+VERSION 2
+    const durationCost = computed((value: number) => {
+      let participants: number = numberOfParticipants.value! + additionalParticipants.value!
+      if (duration.value === '30') {
+        if (servicePlan.value === 'standard') {
+          value = Math.round(0.5 * 2 * participants)
+        } else {
+          value = Math.round(0.5 * participants)
+        }
+      } else if (duration.value === '60') {
+        if (servicePlan.value === 'standard') {
+          value = Math.round(1 * 2 * participants)
+        } else {
+          value = Math.round(1 * participants)
+        }
+      } else if (duration.value === '90') {
+        if (servicePlan.value === 'standard') {
+          value = Math.round(1.5 * 2 * participants)
+        } else {
+          value = Math.round(1.5 * participants)
         }
       }
       return value
     })
+*/
 
-    const studyStructureCost = computed((value: number) => {
+    const studyStructureCost = computed((): number => {
       if (selectedStudyStructure.value === 'face-to-face study') {
-        value = 1
+        return servicePlan.value === 'standard' ? 2 : servicePlan.value === 'premium' ? 3 : 1
       }
-      return value
+      return 0
     })
 
-    const studyTranscriptCost = computed((value: number) => {
+    const studyTranscriptCost = computed((): number => {
       if (studyTranscriptSelected.value === 'I will need transcripts') {
-        value = 2
+        return servicePlan.value === 'standard' ? 4 : servicePlan.value === 'premium' ? 6 : 2
       }
-      return value
+      return 0
     })
 
-    const studyModerationCost = computed((value: number) => {
+    const studyModerationCost = computed((): number => {
       if (studyModerationSelected.value === 'Kimoyo moderates') {
-        value = 2
+        return servicePlan.value === 'standard' ? 4 : servicePlan.value === 'premium' ? 6 : 2
       }
-      return value
+      return 0
     })
 
-    const projectManagementCost = computed((value: number) => {
+    const projectManagementCost = computed((): number => {
       if (projectManagementSelected.value === 'I need help preparing discussion guide') {
-        value = 1
+        return servicePlan.value === 'standard' ? 2 : servicePlan.value === 'premium' ? 3 : 1
       }
-      return value
+      return 0
     })
 
-    const studyReportCost = computed((value: number) => {
+    const studyReportCost = computed((): number => {
       if (studyReportSelected.value === 'I will need a study report') {
-        value = 5
+        return servicePlan.value === 'standard' ? 10 : servicePlan.value === 'premium' ? 15 : 5
       }
-      return value
+      return 0
     })
+
     // Calculate the total cost
-    const totalCost = computed(() => {
-      const costPerCountry = countryCost.value || 0
-      const costPerDuration = durationCost.value || 0
-      const costPerStudyStructure = studyStructureCost.value || 0
-      const costPerStudyModeration = studyModerationCost.value || 0
-      const costPerProjectManagement = projectManagementCost.value || 0
-      const costPerStudyTranscript = studyTranscriptCost.value || 0
-      const costPerStudyReport = studyReportCost.value || 0
-      return (
-        costPerCountry +
-        costPerDuration +
-        costPerStudyStructure +
-        costPerStudyModeration +
-        costPerProjectManagement +
-        costPerStudyTranscript +
-        costPerStudyReport
+    const totalCost = computed((): number => {
+      return [
+        countryCost.value,
+        durationCost.value,
+        studyStructureCost.value,
+        studyModerationCost.value,
+        projectManagementCost.value,
+        studyTranscriptCost.value,
+        studyReportCost.value
+      ].reduce((sum, cost) => sum + (cost || 0), 0)
+    })
+
+    const computeIsFormCompleted = computed((): boolean => {
+      return !(
+        !servicePlan.value ||
+        !selectedCountries.value ||
+        !numberOfParticipants.value ||
+        !duration.value ||
+        !selectedStudyStructure.value ||
+        !studyModerationSelected.value ||
+        !projectManagementSelected.value ||
+        !studyTranscriptSelected.value ||
+        !studyReportSelected.value
       )
     })
 
     // watchers
-    // Watch for changes to servicePlan and update selectedStudyStructure
-    watch(servicePlan, (newVal) => {
+
+    // Watch for changes to servicePlan (standard) and update selectedStudyStructure
+    watch(servicePlan, (newVal: string) => {
       if (newVal === 'standard') {
         selectedStudyStructure.value = 'Online study'
       } else {
@@ -329,25 +330,22 @@ export default defineComponent({
       }
     })
 
-    // Watch for when form is completely filled and all values received
-    const computeIsFormCompleted = computed((): boolean => {
-      if (
-        servicePlan.value &&
-        selectedCountries.value &&
-        numberOfparticipants.value &&
-        additionalParticipants.value &&
-        duration.value &&
-        selectedStudyStructure.value &&
-        studyModerationSelected.value &&
-        projectManagementSelected.value &&
-        studyTranscriptSelected.value &&
-        studyReportSelected.value
-      ) {
-        return true
+    // Watch for changes to servicePlan (premium) and update inputs values
+    watch(servicePlan, (newVal: string) => {
+      if (newVal === 'premium') {
+        studyModerationSelected.value = 'Kimoyo moderates'
+        projectManagementSelected.value = 'I need help preparing discussion guide'
+        studyTranscriptSelected.value = 'I will need transcripts'
+        studyReportSelected.value = 'I will need a study report'
+      } else {
+        studyModerationSelected.value = ''
+        projectManagementSelected.value = ''
+        studyTranscriptSelected.value = ''
+        studyReportSelected.value = ''
       }
-
-      return false
     })
+
+    // Watch for when form is completely filled and all values received
     watchEffect(() => {
       const completed = computeIsFormCompleted.value
       isFormCompleted.value = completed
@@ -365,7 +363,7 @@ export default defineComponent({
       selectedCountries,
       resetInstance,
       countries,
-      numberOfparticipants,
+      numberOfParticipants,
       additionalParticipants,
       duration,
       durationCost,
@@ -388,5 +386,3 @@ export default defineComponent({
   }
 })
 </script>
-
-function emit(arg0: string, value: boolean) { throw new Error('Function not implemented.') }

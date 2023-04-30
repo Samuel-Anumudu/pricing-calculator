@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, toRef, watch } from 'vue'
 import type { PropType } from 'vue'
 
 export default defineComponent({
@@ -23,14 +23,30 @@ export default defineComponent({
     initialSelect: {
       type: String as PropType<string>,
       default: ''
+    },
+    servicePlan: {
+      type: String as PropType<string>,
+      required: true
     }
   },
   emits: ['updateSelected'],
   setup(props, { emit }) {
     const studyTranscriptSelected = ref<string>(props.initialSelect)
+
+    const servicePlanRef = toRef(props, 'servicePlan')
+
     const updateStudyTranscriptSelected = () => {
       emit('updateSelected', studyTranscriptSelected.value)
     }
+
+    watch(servicePlanRef, (newServicePlan) => {
+      if (newServicePlan === 'premium') {
+        studyTranscriptSelected.value = 'I will need transcripts'
+      } else {
+        studyTranscriptSelected.value = ''
+      }
+    })
+
     return { studyTranscriptSelected, updateStudyTranscriptSelected }
   }
 })
