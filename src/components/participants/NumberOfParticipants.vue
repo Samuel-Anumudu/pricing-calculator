@@ -8,7 +8,6 @@
         placeholder="00"
         v-model="numberOfparticipants"
         @input="updateAdditionalParticipants"
-        min="4"
       />
     </div>
     <div class="participants-field">

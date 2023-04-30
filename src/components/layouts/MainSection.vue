@@ -50,6 +50,12 @@
           :key="resetInstance"
         />
 
+        <StudyReport
+          :initialSelect="studyReportSelected"
+          @updateStudyReport="onUpdateStudyReport"
+          :key="resetInstance"
+        />
+
         <ResetButton text="Reset pricing selection" @click="resetFields" />
       </form>
     </section>
@@ -115,6 +121,16 @@
               }}
             </li>
           </ul>
+
+          <ul class="selected-study-report">
+            <li v-show="studyReportSelected">
+              {{
+                studyReportSelected === 'I will need a study report'
+                  ? 'Need study report and analysis'
+                  : 'No study report and analysis needed'
+              }}
+            </li>
+          </ul>
         </div>
       </div>
     </section>
@@ -131,6 +147,7 @@ import StudyStructure from '@/components/dropdowns/StudyStructure.vue'
 import StudyModeration from '@/components/dropdowns/StudyModeration.vue'
 import ProjectManagement from '@/components/dropdowns/ProjectManagement.vue'
 import StudyTranscript from '@/components/dropdowns/StudyTranscript.vue'
+import StudyReport from '@/components/dropdowns/StudyReport.vue'
 import ResetButton from '@/components/ui/ResetButton.vue'
 
 import { defineComponent, ref, computed, watch, watchEffect } from 'vue'
@@ -145,6 +162,7 @@ export default defineComponent({
     StudyModeration,
     ProjectManagement,
     StudyTranscript,
+    StudyReport,
     ResetButton
   },
 
@@ -160,16 +178,18 @@ export default defineComponent({
     const additionalParticipants = ref<number | null>(null)
     // List of countries
     const countries = ref(['Nigeria', 'Ghana', 'Senegal', 'South Africa', 'Kenya'])
-    // Study Session Initial Duration
+    // Study Session Duration ref
     const duration = ref<string>('')
-    // Study Structure selected
+    // Study Structure ref
     const selectedStudyStructure = ref<string>('')
-    // Study Moderation selected
+    // Study Moderation ref
     const studyModerationSelected = ref<string>('')
-    // Project management and discussion prep selected
+    // Project management and discussion prep ref
     const projectManagementSelected = ref<string>('')
-    // Study Transcript for each session
+    // Study Transcript ref
     const studyTranscriptSelected = ref<string>('')
+    // Study Report ref
+    const studyReportSelected = ref<string>('')
     // Form completed ref
     const isFormCompleted = ref(false)
 
@@ -184,6 +204,10 @@ export default defineComponent({
 
     const onUpdateStudyTranscript = (selectedStudyTranscript: string) => {
       studyTranscriptSelected.value = selectedStudyTranscript
+    }
+
+    const onUpdateStudyReport = (selectedStudyReport: string) => {
+      studyReportSelected.value = selectedStudyReport
     }
 
     const onUpdateSelectedProjectManagement = (selectedProjectManagement: string) => {
@@ -215,6 +239,7 @@ export default defineComponent({
       selectedStudyStructure.value = ''
       studyModerationSelected.value = ''
       studyTranscriptSelected.value = ''
+      studyReportSelected.value = ''
       projectManagementSelected.value = ''
       numberOfparticipants.value = null
       additionalParticipants.value = null
@@ -267,6 +292,13 @@ export default defineComponent({
       }
       return value
     })
+
+    const studyReportCost = computed((value: number) => {
+      if (studyReportSelected.value === 'I will need a study report') {
+        value = 5
+      }
+      return value
+    })
     // Calculate the total cost
     const totalCost = computed(() => {
       const costPerCountry = countryCost.value || 0
@@ -275,13 +307,15 @@ export default defineComponent({
       const costPerStudyModeration = studyModerationCost.value || 0
       const costPerProjectManagement = projectManagementCost.value || 0
       const costPerStudyTranscript = studyTranscriptCost.value || 0
+      const costPerStudyReport = studyReportCost.value || 0
       return (
         costPerCountry +
         costPerDuration +
         costPerStudyStructure +
         costPerStudyModeration +
         costPerProjectManagement +
-        costPerStudyTranscript
+        costPerStudyTranscript +
+        costPerStudyReport
       )
     })
 
@@ -295,16 +329,6 @@ export default defineComponent({
       }
     })
 
-    //  servicePlan.value = ''
-    //   duration.value = ''
-    //   selectedStudyStructure.value = ''
-    //   studyModerationSelected.value = ''
-    //   studyTranscriptSelected.value = ''
-    //   projectManagementSelected.value = ''
-    //   numberOfparticipants.value = null
-    //   additionalParticipants.value = null
-    //   selectedCountries.value = []
-
     // Watch for when form is completely filled and all values received
     const computeIsFormCompleted = computed((): boolean => {
       if (
@@ -316,8 +340,8 @@ export default defineComponent({
         selectedStudyStructure.value &&
         studyModerationSelected.value &&
         projectManagementSelected.value &&
-        studyTranscriptSelected.value
-        // should add more here -----------
+        studyTranscriptSelected.value &&
+        studyReportSelected.value
       ) {
         return true
       }
@@ -348,11 +372,13 @@ export default defineComponent({
       selectedStudyStructure,
       studyModerationSelected,
       studyTranscriptSelected,
+      studyReportSelected,
       projectManagementSelected,
       onUpdateSelectedProjectManagement,
       onUpdateDuration,
       onUpdateStudyModeration,
       onUpdateStudyTranscript,
+      onUpdateStudyReport,
       onStudyStructureSelected,
       onChangeServicePlan,
       onSelectedCountriesChanged,
