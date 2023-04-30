@@ -17,6 +17,7 @@ html {
   --participants-countries-border-color: rgba(130, 130, 130, 1);
   --participants-countries-checked-color: rgba(0, 117, 242, 1);
   --plan-desc-bg-color: rgba(173, 235, 204, 1);
+  --header-bg-color: rgba(248, 227, 201, 1);
 }
 
 body {
@@ -24,6 +25,7 @@ body {
   padding: 0;
   font-family: 'Inter', sans-serif;
   font-size: 1rem;
+  background-color: white;
 }
 
 h1,
@@ -37,6 +39,10 @@ ul {
 
 img {
   max-width: 100%;
+}
+
+header.form-completed {
+  background-color: var(--header-bg-color);
 }
 
 .logo {

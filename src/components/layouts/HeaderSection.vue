@@ -1,14 +1,22 @@
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'HeaderSection'
-})
-</script>
 <template>
-  <header>
-    <img src="../../assets/kimoyo.png" alt="Kimoyo logo" class="logo" />
+  <header :class="{ 'form-completed': isFormCompleted }">
+    <div class="container">
+      <img src="../../assets/kimoyo.png" alt="Kimoyo logo" class="logo" />
+    </div>
   </header>
 </template>
 
-<style></style>
+<script lang="ts">
+import { defineComponent } from 'vue'
+import type { PropType } from 'vue'
+
+export default defineComponent({
+  name: 'HeaderSection',
+  props: {
+    isFormCompleted: {
+      type: Boolean as PropType<boolean>,
+      required: true
+    }
+  }
+})
+</script>

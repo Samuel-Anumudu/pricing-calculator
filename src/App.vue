@@ -1,10 +1,10 @@
 <template>
-  <HeaderSection />
-  <MainSection />
+  <HeaderSection :isFormCompleted="isFormCompleted" />
+  <MainSection @formCompleted="onFormCompleted" />
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import HeaderSection from './components/layouts/HeaderSection.vue'
 import MainSection from './components/layouts/MainSection.vue'
 
@@ -13,6 +13,15 @@ export default defineComponent({
   components: {
     HeaderSection,
     MainSection
+  },
+  setup() {
+    const isFormCompleted = ref<boolean>(false)
+
+    const onFormCompleted = (completed: boolean) => {
+      isFormCompleted.value = completed
+    }
+
+    return { isFormCompleted, onFormCompleted }
   }
 })
 </script>
