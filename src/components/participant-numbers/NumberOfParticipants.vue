@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch, computed } from 'vue'
+import { defineComponent, ref, watch, computed, watchEffect } from 'vue'
 
 export default defineComponent({
   name: 'NumberOfParticipants',
@@ -46,18 +46,21 @@ export default defineComponent({
     })
 
     watch(numberOfParticipants, (newValue) => {
-      const inputNumber = Number(newValue)
-      if (Number.isInteger(inputNumber) && inputNumber >= 0) {
-        additionalParticipants.value = Math.floor(inputNumber * 0.2)
+      if (Number.isInteger(newValue) && newValue! >= 0) {
+        additionalParticipants.value = Math.floor(newValue! * 0.2)
       } else {
-        numberOfParticipants.value = null
         additionalParticipants.value = null
       }
 
       emit('updateNumberOfParticipants', {
-        numberOfParticipants: numberOfParticipants.value,
+        numberOfParticipants: newValue,
         additionalParticipants: additionalParticipants.value
       })
+    })
+    watchEffect(() => {
+      if (!numberOfParticipants.value) {
+        additionalParticipants.value = null
+      }
     })
 
     const updateAdditionalParticipants = () => {

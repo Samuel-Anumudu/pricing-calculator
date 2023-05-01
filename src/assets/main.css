@@ -101,3 +101,7 @@ input[type='checkbox']:checked {
   color: inherit;
   cursor: pointer;
 }
+
+.input-error {
+  display: none;
+}
