@@ -20,54 +20,62 @@
                 @selectedCountriesChanged="onSelectedCountriesChanged"
                 :key="resetInstance"
               />
-              <NumberOfParticipants
-                @updateNumberOfParticipants="onInputsUpdated"
-                :key="resetInstance"
-              />
+              <div class="drop-downs">
+                <NumberOfParticipants
+                  @updateNumberOfParticipants="onInputsUpdated"
+                  :key="resetInstance"
+                />
+                <div class="drop-down-child">
+                  <StudyDuration
+                    :initialDuration="duration"
+                    @updateDuration="onUpdateDuration"
+                    :key="resetInstance"
+                  />
 
-              <StudyDuration
-                :initialDuration="duration"
-                @updateDuration="onUpdateDuration"
-                :key="resetInstance"
-              />
+                  <StudyStructure
+                    :servicePlan="servicePlan"
+                    :initialStudyStructure="selectedStudyStructure"
+                    @updateStudyStructure="onStudyStructureSelected"
+                    :key="resetInstance"
+                  />
+                </div>
 
-              <StudyStructure
-                :servicePlan="servicePlan"
-                :initialStudyStructure="selectedStudyStructure"
-                @updateStudyStructure="onStudyStructureSelected"
-                :key="resetInstance"
-              />
+                <div class="drop-down-child">
+                  <StudyModeration
+                    :servicePlan="servicePlan"
+                    :initialStudyModeration="studyModerationSelected"
+                    @updateStudyModeration="onUpdateStudyModeration"
+                    :key="resetInstance"
+                  />
 
-              <StudyModeration
-                :servicePlan="servicePlan"
-                :initialStudyModeration="studyModerationSelected"
-                @updateStudyModeration="onUpdateStudyModeration"
-                :key="resetInstance"
-              />
+                  <ProjectManagement
+                    :servicePlan="servicePlan"
+                    :initialSelect="projectManagementSelected"
+                    @updateSelected="onUpdateSelectedProjectManagement"
+                    :key="resetInstance"
+                  />
+                </div>
 
-              <ProjectManagement
-                :servicePlan="servicePlan"
-                :initialSelect="projectManagementSelected"
-                @updateSelected="onUpdateSelectedProjectManagement"
-                :key="resetInstance"
-              />
+                <div class="drop-down-child">
+                  <StudyTranscript
+                    :servicePlan="servicePlan"
+                    :initialSelect="studyTranscriptSelected"
+                    @updateSelected="onUpdateStudyTranscript"
+                    :key="resetInstance"
+                  />
 
-              <StudyTranscript
-                :servicePlan="servicePlan"
-                :initialSelect="studyTranscriptSelected"
-                @updateSelected="onUpdateStudyTranscript"
-                :key="resetInstance"
-              />
-
-              <StudyReport
-                :servicePlan="servicePlan"
-                :initialSelect="studyReportSelected"
-                @updateStudyReport="onUpdateStudyReport"
-                :key="resetInstance"
-              />
+                  <StudyReport
+                    :servicePlan="servicePlan"
+                    :initialSelect="studyReportSelected"
+                    @updateStudyReport="onUpdateStudyReport"
+                    :key="resetInstance"
+                  />
+                </div>
+              </div>
             </div>
 
             <ResetButton text="Reset pricing selection" @click="resetFields" />
+            <PurchasePlan text="Purchase plan" />
           </form>
         </div>
       </section>
@@ -116,6 +124,7 @@ import StudyTranscript from '@/components/study-dropdowns/StudyTranscript.vue'
 import StudyReport from '@/components/study-dropdowns/StudyReport.vue'
 import StudySummaryList from '@/components/study-summary-list/StudySummaryList.vue'
 import ResetButton from '@/components/ui/ResetButton.vue'
+import PurchasePlan from '@/components/ui/PurchasePlan.vue'
 
 import { defineComponent, ref, computed, watch, watchEffect } from 'vue'
 export default defineComponent({
@@ -131,7 +140,8 @@ export default defineComponent({
     ProjectManagement,
     StudyTranscript,
     StudyReport,
-    ResetButton
+    ResetButton,
+    PurchasePlan
   },
 
   setup(_, { emit }) {

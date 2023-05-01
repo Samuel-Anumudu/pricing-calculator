@@ -1,5 +1,5 @@
 <template>
-  <div id="number-of-participants">
+  <div class="number-of-participants">
     <div class="participants-field">
       <label for="numberOfParticipants">Number of participants</label>
       <input
