@@ -64,10 +64,12 @@ header {
 .total-cost {
   background-color: var(--total-cost-bg-color);
   color: white;
+  padding: 40px 24px;
 }
 
 .study-summary {
   background-color: var(--study-summary-bg-color);
+  width: 100%;
 }
 
 .pricing-calculator-text {
@@ -84,10 +86,10 @@ header {
 
 .pricing-calculator-text p {
   font-family: inherit;
-  font-weight: 400;
-  font-size: calc(14px / var(--default-font));
+  font-weight: thin;
   line-height: 20px;
 }
+
 .total-cost .container p {
   font-weight: 300;
 }
@@ -96,15 +98,28 @@ header {
   border: 1px solid var(--service-plans-border-color);
   border-radius: 4px;
   background-color: white;
+  padding: 0.3em 0.2em 0.3em 0;
+  margin-right: 0.8rem;
 }
 
+.service-plan-controls p {
+  font-weight: 400;
+  line-height: 20px;
+  padding-bottom: 0.7rem;
+}
 .service-plan-desc p {
   background-color: var(--plan-desc-bg-color);
   border-radius: 4px;
 }
 
+.participants-countries p {
+  font-weight: 400;
+  line-height: 19px;
+  margin-bottom: 1rem;
+}
+
 .service-plans {
-  margin: 2.5rem 0;
+  margin: 2.5rem 0 3rem;
 }
 
 .total-cost p {
@@ -171,8 +186,7 @@ input[type='checkbox']:checked {
   width: 100%;
 }
 
-button.reset-btn,
-button.purchase-plan-btn {
+button.reset-btn {
   background-color: var(--reset-button-color);
   color: inherit;
   display: block;
@@ -184,20 +198,107 @@ button.purchase-plan-btn {
   border-radius: 4px;
   width: 100%;
   transition: transform 0.4s ease-in-out;
+  margin-bottom: 3rem;
 }
 
-button.purchase-plan-btn {
-  background-color: #333 !important;
-  color: white !important;
-}
-
-button.reset-btn:active,
-button.purchase-plan-btn:active {
+button.reset-btn:active {
   transform: scale(1.1);
 }
 
 .input-error {
   display: none;
+}
+
+.drop-downs {
+  padding: 2.5rem 0;
+}
+
+.project-management label,
+.study-duration label,
+.study-moderation label,
+.study-report label,
+.study-structure label,
+.study-transcript label,
+.participants-field label {
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 17px;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.number-of-participants .participants-field input,
+.project-management select,
+.study-duration select,
+.study-moderation select,
+.study-report select,
+.study-structure select,
+.study-transcript select,
+.participants-field select {
+  width: 312px;
+  height: 48px;
+  display: block;
+  padding: 0 1rem;
+  color: #828282;
+  font-weight: 400;
+  line-height: 17px;
+  outline: none;
+  font-size: 14px;
+}
+
+.number-of-participants .participants-field input {
+  outline: none;
+}
+
+input::placeholder {
+  color: #828282;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+small {
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #828282;
+  display: inline-block;
+  margin-top: 0.875em;
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: url('../../public/chevron-down-solid.svg') no-repeat 95% center;
+}
+.number-of-participants {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.drop-down-child:not(:last-child) {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.study-report {
+  margin-top: 2rem;
+}
+
+.total-cost .container p {
+  font-weight: thin;
+  margin-bottom: 0.5rem;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.total-cost .container h1 {
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 48px;
 }
 
 @media (min-width: 992px) {
@@ -245,6 +346,7 @@ button.purchase-plan-btn:active {
 
   .number-of-participants {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     width: 100%;
   }
@@ -272,7 +374,6 @@ button.purchase-plan-btn:active {
   }
 
   .study-summary {
-    /* height: 940px; */
     height: 100%;
     padding: 56px 32px 0px;
   }
@@ -321,7 +422,6 @@ button.purchase-plan-btn:active {
 
   .service-plan-controls label {
     padding: 0.8rem 1rem 0.8rem 0.8rem;
-    font-size: 14px;
     margin-right: 1.5rem;
     cursor: pointer;
   }
@@ -369,59 +469,6 @@ button.purchase-plan-btn:active {
     margin-bottom: 1rem;
   }
 
-  .project-management label,
-  .study-duration label,
-  .study-moderation label,
-  .study-report label,
-  .study-structure label,
-  .study-transcript label,
-  .participants-field label {
-    font-weight: 400;
-    font-size: 0.875rem;
-    line-height: 17px;
-    margin-bottom: 0.5rem;
-    display: inline-block;
-  }
-
-  .number-of-participants .participants-field input,
-  .project-management select,
-  .study-duration select,
-  .study-moderation select,
-  .study-report select,
-  .study-structure select,
-  .study-transcript select,
-  .participants-field select {
-    width: 344px;
-    height: 48px;
-    display: block;
-    padding: 0 1rem;
-    color: #828282;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-    outline: none;
-  }
-
-  .number-of-participants .participants-field input {
-    outline: none;
-  }
-
-  input::placeholder {
-    color: #828282;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-  }
-
-  small {
-    font-weight: 400;
-    font-size: 10px;
-    line-height: 12px;
-    color: #828282;
-    display: inline-block;
-    margin-top: 0.875em;
-  }
-
   button.reset-btn {
     width: 344px;
     margin-bottom: 9rem;
@@ -433,5 +480,22 @@ button.purchase-plan-btn:active {
     -webkit-appearance: none;
     background: url('../../public/chevron-down-solid.svg') no-repeat 95% center;
     /* The arrow image should have transparent background */
+  }
+
+  .number-of-participants {
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+  }
+
+  .drop-down-child:not(:last-child) {
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+    margin: 0;
+  }
+
+  .study-report {
+    margin-top: 0;
   }
 }
