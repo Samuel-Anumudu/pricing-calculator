@@ -143,7 +143,6 @@ input::-webkit-inner-spin-button {
   margin: 0 !important;
 }
 
-/* Hide the default checkbox */
 input[type='checkbox'] {
   appearance: none;
   -webkit-appearance: none;
@@ -152,8 +151,6 @@ input[type='checkbox'] {
   border: 1px solid var(--participants-countries-border-color);
   border-radius: 2.5px;
 }
-
-/* Style the custom checkbox when it's checked */
 
 input[type='checkbox']:checked {
   border-color: var(--participants-countries-checked-color);
@@ -476,11 +473,7 @@ select {
     font-size: 3rem;
     line-height: 58px;
   }
-  /* Do this later */
-  /* input[type='radio'] {
-    width: 15px;
-    height: 15px;
-  } */
+
   .country-fields label,
   .country-fields label input {
     cursor: pointer;
@@ -502,11 +495,9 @@ select {
   }
 
   select {
-    /* Other styles for select element */
     appearance: none;
     -webkit-appearance: none;
     background: url('../../public/chevron-down-solid.svg') no-repeat 95% center;
-    /* The arrow image should have transparent background */
   }
 
   .number-of-participants .participants-field input,
