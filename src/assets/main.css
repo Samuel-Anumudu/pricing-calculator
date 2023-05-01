@@ -235,7 +235,7 @@ button.reset-btn:active {
 .study-structure select,
 .study-transcript select,
 .participants-field select {
-  width: 312px;
+  width: 100%;
   height: 48px;
   display: block;
   padding: 0 1rem;
