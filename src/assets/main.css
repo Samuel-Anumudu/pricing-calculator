@@ -92,13 +92,15 @@ header {
 .service-plan-controls label {
   border: 1px solid var(--service-plans-border-color);
   border-radius: 4px;
+  background-color: white;
 }
 
 .service-plan-desc p {
   background-color: var(--plan-desc-bg-color);
+  border-radius: 4px;
 }
 
-#service-plans {
+.service-plans {
   margin: 2.5rem 0;
 }
 
@@ -177,7 +179,7 @@ button.purchase-plan-btn {
 }
 
 button.purchase-plan-btn {
-  background-color: #df7b45 !important;
+  background-color: #333 !important;
   color: white !important;
 }
 
@@ -199,6 +201,7 @@ button.purchase-plan-btn:active {
     width: 100%;
     z-index: 9999;
     top: 0;
+    padding: 0 7.5rem;
   }
 
   .container {
@@ -238,6 +241,7 @@ button.purchase-plan-btn:active {
   }
   .form-section {
     flex: 0 0 67.5%;
+    padding: 0 0 0 7.5rem;
   }
 
   .total-cost-section {
@@ -256,4 +260,52 @@ button.purchase-plan-btn:active {
     height: 940px;
     padding: 56px 32px 0px;
   }
+
+  .pricing-calculator-text {
+    padding-top: 2.5rem;
+  }
+
+  .pricing-calculator-text h1 {
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    line-height: 29.05px;
+  }
+  .pricing-calculator-text p {
+    font-size: 0.875rem;
+    line-height: 16.94px;
+    font-weight: 400;
+  }
+
+  .service-plans {
+    margin: 3rem 0 2rem 0;
+  }
+
+  .service-plan-controls p {
+    font-weight: 600;
+    line-height: 19.36px;
+    padding-bottom: 1.7rem;
+  }
+
+  .service-plan-controls label {
+    padding: 0.8rem 1rem 0.8rem 0.8rem;
+    font-size: 14px;
+    margin-right: 1.5rem;
+    cursor: pointer;
+  }
+
+  .service-plan-desc p {
+    margin-top: 2rem;
+    font-size: 0.625rem;
+    font-weight: thin;
+    line-height: 12px;
+    padding: 0.7rem 0.7rem;
+    width: fit-content;
+    color: var(--header-text-color);
+  }
+
+  /* Do this later */
+  /* input[type='radio'] {
+    width: 15px;
+    height: 15px;
+  } */
 }

@@ -1,5 +1,5 @@
 <template>
-  <div id="service-plans">
+  <div class="service-plans">
     <div class="service-plan-controls">
       <p>Select a Kimoyo service plan</p>
       <label for="basic">
