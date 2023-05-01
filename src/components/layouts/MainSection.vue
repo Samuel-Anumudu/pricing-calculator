@@ -75,7 +75,6 @@
             </div>
 
             <ResetButton text="Reset pricing selection" @click="resetFields" />
-            <PurchasePlan text="Purchase plan" />
           </form>
         </div>
       </section>
@@ -124,7 +123,6 @@ import StudyTranscript from '@/components/study-dropdowns/StudyTranscript.vue'
 import StudyReport from '@/components/study-dropdowns/StudyReport.vue'
 import StudySummaryList from '@/components/study-summary-list/StudySummaryList.vue'
 import ResetButton from '@/components/ui/ResetButton.vue'
-import PurchasePlan from '@/components/ui/PurchasePlan.vue'
 
 import { defineComponent, ref, computed, watch, watchEffect } from 'vue'
 export default defineComponent({
@@ -140,8 +138,7 @@ export default defineComponent({
     ProjectManagement,
     StudyTranscript,
     StudyReport,
-    ResetButton,
-    PurchasePlan
+    ResetButton
   },
 
   setup(_, { emit }) {

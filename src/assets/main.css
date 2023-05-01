@@ -158,7 +158,12 @@ input[type='checkbox']:checked {
   display: flex;
   align-items: center;
   padding: 0.3em 0.375em;
-  margin-right: 1rem;
+  margin-right: 1.3rem;
+  font-size: 0.875rem;
+}
+
+.country-fields label input {
+  margin-right: 10px;
 }
 
 .number-of-participants .participants-field input {
@@ -228,14 +233,20 @@ button.purchase-plan-btn:active {
   .drop-downs {
     display: flex;
     flex-wrap: wrap;
+    padding: 3rem 0;
   }
 
   .drop-down-child {
     display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 2rem;
   }
 
   .number-of-participants {
     display: flex;
+    justify-content: space-between;
+    width: 100%;
   }
 
   .participants-field {
@@ -243,13 +254,14 @@ button.purchase-plan-btn:active {
     flex-direction: column;
   }
   .form-section {
-    flex: 0 0 65%;
+    flex: 0 0 68%;
     padding: 0 0 0 7.5rem;
   }
 
   .total-cost-section {
     width: 33.2%;
     position: fixed;
+    overflow-y: scroll;
     height: 100%;
     right: 0;
     top: 88px;
@@ -260,26 +272,34 @@ button.purchase-plan-btn:active {
   }
 
   .study-summary {
-    height: 940px;
+    /* height: 940px; */
+    height: 100%;
     padding: 56px 32px 0px;
   }
   .study-summary .container h3 {
     font-weight: 600;
     font-size: 1.5rem;
     line-height: 29px;
-    margin: 0.5rem 0 1.5rem 0;
+    margin: 0.5rem 0 1rem 0;
   }
 
   .study-summary .container p {
-    font-weight: 400;
+    font-weight: thin;
     line-height: 24px;
+    margin-bottom: 1.5rem;
+  }
+
+  .study-summary-list ul {
+    font-weight: thin;
+    line-height: 24px;
+    margin-bottom: 1.5rem;
   }
   .pricing-calculator-text {
     padding-top: 2.5rem;
   }
 
   .pricing-calculator-text h1 {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.7rem;
     font-size: 1.5rem;
     line-height: 29.05px;
   }
@@ -315,6 +335,10 @@ button.purchase-plan-btn:active {
     width: fit-content;
     color: var(--header-text-color);
   }
+  .service-plan-desc p span {
+    display: inline-block;
+    margin-right: 0.5em;
+  }
   .total-cost .container p {
     font-weight: thin;
     margin-bottom: 0.5rem;
@@ -330,4 +354,84 @@ button.purchase-plan-btn:active {
     width: 15px;
     height: 15px;
   } */
+  .country-fields label,
+  .country-fields label input {
+    cursor: pointer;
+  }
+  .participants-countries {
+    border: 1px solid #828282;
+    border-radius: 4px;
+    background-color: white;
+    padding: 1.5rem 0 1.5rem 1.5rem;
+    margin-top: 3.65rem;
+  }
+  .participants-countries p {
+    margin-bottom: 1rem;
+  }
+
+  .project-management label,
+  .study-duration label,
+  .study-moderation label,
+  .study-report label,
+  .study-structure label,
+  .study-transcript label,
+  .participants-field label {
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 17px;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+  }
+
+  .number-of-participants .participants-field input,
+  .project-management select,
+  .study-duration select,
+  .study-moderation select,
+  .study-report select,
+  .study-structure select,
+  .study-transcript select,
+  .participants-field select {
+    width: 344px;
+    height: 48px;
+    display: block;
+    padding: 0 1rem;
+    color: #828282;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    outline: none;
+  }
+
+  .number-of-participants .participants-field input {
+    outline: none;
+  }
+
+  input::placeholder {
+    color: #828282;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+  }
+
+  small {
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #828282;
+    display: inline-block;
+    margin-top: 0.875em;
+  }
+
+  button.reset-btn {
+    width: 344px;
+    margin-bottom: 9rem;
+  }
+
+  select {
+    /* Other styles for select element */
+    appearance: none;
+    -webkit-appearance: none;
+    background: url('../../public/chevron-down-solid.svg') no-repeat 95% center;
+    /* The arrow image should have transparent background */
+  }
 }

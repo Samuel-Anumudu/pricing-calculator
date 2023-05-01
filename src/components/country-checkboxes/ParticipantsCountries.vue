@@ -1,5 +1,5 @@
 <template>
-  <div id="participants-countries">
+  <div class="participants-countries">
     <p>Countries to recruit participants from</p>
     <div class="country-fields">
       <label v-for="(country, index) in countries" :key="index" :for="country">
