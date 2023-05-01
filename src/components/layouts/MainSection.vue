@@ -8,62 +8,64 @@
             <p>Calculate how much it will cost to conduct a Kimoyo Research Study.</p>
           </div>
           <form>
-            <ServicePlans
-              :servicePlan="servicePlan"
-              @updateServicePlan:servicePlan="onChangeServicePlan"
-              :key="resetInstance"
-            />
+            <div class="form-fields">
+              <ServicePlans
+                :servicePlan="servicePlan"
+                @updateServicePlan:servicePlan="onChangeServicePlan"
+                :key="resetInstance"
+              />
 
-            <ParticipantsCountries
-              :countries="countries"
-              @selectedCountriesChanged="onSelectedCountriesChanged"
-              :key="resetInstance"
-            />
-            <NumberOfParticipants
-              @updateNumberOfParticipants="onInputsUpdated"
-              :key="resetInstance"
-            />
+              <ParticipantsCountries
+                :countries="countries"
+                @selectedCountriesChanged="onSelectedCountriesChanged"
+                :key="resetInstance"
+              />
+              <NumberOfParticipants
+                @updateNumberOfParticipants="onInputsUpdated"
+                :key="resetInstance"
+              />
 
-            <StudyDuration
-              :initialDuration="duration"
-              @updateDuration="onUpdateDuration"
-              :key="resetInstance"
-            />
+              <StudyDuration
+                :initialDuration="duration"
+                @updateDuration="onUpdateDuration"
+                :key="resetInstance"
+              />
 
-            <StudyStructure
-              :servicePlan="servicePlan"
-              :initialStudyStructure="selectedStudyStructure"
-              @updateStudyStructure="onStudyStructureSelected"
-              :key="resetInstance"
-            />
+              <StudyStructure
+                :servicePlan="servicePlan"
+                :initialStudyStructure="selectedStudyStructure"
+                @updateStudyStructure="onStudyStructureSelected"
+                :key="resetInstance"
+              />
 
-            <StudyModeration
-              :servicePlan="servicePlan"
-              :initialStudyModeration="studyModerationSelected"
-              @updateStudyModeration="onUpdateStudyModeration"
-              :key="resetInstance"
-            />
+              <StudyModeration
+                :servicePlan="servicePlan"
+                :initialStudyModeration="studyModerationSelected"
+                @updateStudyModeration="onUpdateStudyModeration"
+                :key="resetInstance"
+              />
 
-            <ProjectManagement
-              :servicePlan="servicePlan"
-              :initialSelect="projectManagementSelected"
-              @updateSelected="onUpdateSelectedProjectManagement"
-              :key="resetInstance"
-            />
+              <ProjectManagement
+                :servicePlan="servicePlan"
+                :initialSelect="projectManagementSelected"
+                @updateSelected="onUpdateSelectedProjectManagement"
+                :key="resetInstance"
+              />
 
-            <StudyTranscript
-              :servicePlan="servicePlan"
-              :initialSelect="studyTranscriptSelected"
-              @updateSelected="onUpdateStudyTranscript"
-              :key="resetInstance"
-            />
+              <StudyTranscript
+                :servicePlan="servicePlan"
+                :initialSelect="studyTranscriptSelected"
+                @updateSelected="onUpdateStudyTranscript"
+                :key="resetInstance"
+              />
 
-            <StudyReport
-              :servicePlan="servicePlan"
-              :initialSelect="studyReportSelected"
-              @updateStudyReport="onUpdateStudyReport"
-              :key="resetInstance"
-            />
+              <StudyReport
+                :servicePlan="servicePlan"
+                :initialSelect="studyReportSelected"
+                @updateStudyReport="onUpdateStudyReport"
+                :key="resetInstance"
+              />
+            </div>
 
             <ResetButton text="Reset pricing selection" @click="resetFields" />
           </form>
