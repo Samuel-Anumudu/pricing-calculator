@@ -7,7 +7,6 @@
 }
 html {
   scroll-behavior: smooth;
-  color: var(--header-text-color);
 }
 
 :root {
@@ -18,14 +17,19 @@ html {
   --participants-countries-checked-color: rgba(0, 117, 242, 1);
   --plan-desc-bg-color: rgba(173, 235, 204, 1);
   --header-bg-color: rgba(248, 227, 201, 1);
+  --total-cost-bg-color: rgba(51, 39, 124, 1);
+  --study-summary-bg-color: rgba(227, 224, 245, 1);
+  --form-section-bg-color: rgba(250, 250, 250, 1);
+  --default-font: 1rem;
 }
 
 body {
   margin: 0;
   padding: 0;
+  font-size: var(--default-font);
   font-family: 'Inter', sans-serif;
-  font-size: 1rem;
   background-color: white;
+  color: var(--header-text-color);
 }
 
 h1,
@@ -41,23 +45,55 @@ img {
   max-width: 100%;
 }
 
-header.form-completed {
-  background-color: var(--header-bg-color);
+.container {
+  max-width: 100%;
+  width: 87%;
+  margin: 0 auto;
 }
 
 .logo {
-  width: 180px;
+  width: 137px;
+}
+header {
+  height: 88px;
+  display: flex;
+  align-items: center;
+  background-color: white;
 }
 
-.bold {
-  font-weight: 600;
+.form-section {
+  background-color: var(--form-section-bg-color);
 }
 
-.header-text {
+.total-cost {
+  background-color: var(--total-cost-bg-color);
+  color: white;
+}
+
+.study-summary {
+  background-color: var(--study-summary-bg-color);
+}
+
+.pricing-calculator-text {
+  padding-top: 1.5rem;
+}
+
+.pricing-calculator-text h1 {
   font-weight: 700;
+  font-family: inherit;
+  font-size: 20px;
+  line-height: 24px;
+  margin-bottom: 0.5rem;
 }
 
-#service-plans label {
+.pricing-calculator-text p {
+  font-family: inherit;
+  font-weight: 400;
+  font-size: calc(14px / var(--default-font));
+  line-height: 20px;
+}
+
+.service-plan-controls label {
   border: 1px solid var(--service-plans-border-color);
   border-radius: 4px;
 }
@@ -66,8 +102,28 @@ header.form-completed {
   background-color: var(--plan-desc-bg-color);
 }
 
+#service-plans {
+  margin: 2.5rem 0;
+}
+
 .total-cost p {
   text-transform: uppercase;
+}
+
+.study-duration select,
+.study-structure select,
+.study-moderation select,
+.project-management select,
+.study-transcript select,
+.study-report select {
+  width: 100%;
+  display: block;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0 !important;
 }
 
 /* Hide the default checkbox */
@@ -81,6 +137,7 @@ input[type='checkbox'] {
 }
 
 /* Style the custom checkbox when it's checked */
+
 input[type='checkbox']:checked {
   border-color: var(--participants-countries-checked-color);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M1.73 6.3l-.6-.6a1 1 0 0 1 0-1.42 1 1 0 0 1 1.42 0L4 7.6l5.6-5.6a1 1 0 0 1 1.42 1.42l-6 6a1 1 0 0 1-1.42 0z' fill='%23007bff'/%3E%3C/svg%3E");
@@ -89,19 +146,93 @@ input[type='checkbox']:checked {
   background-position: center;
 }
 
+.country-fields {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 1rem;
+}
 .country-fields label {
   border: 1px solid var(--participants-countries-border-color);
   border-radius: 4px;
-  width: fit-content;
   display: flex;
+  align-items: center;
+  padding: 0.3em 0.375em;
+  margin-right: 1rem;
 }
 
-.reset-btn {
+#number-of-participants .participants-field input {
+  width: 100%;
+}
+
+button.reset-btn {
   background-color: var(--reset-button-color);
   color: inherit;
-  cursor: pointer;
+  display: block;
+  border: none;
+  padding: 18px 16px;
+  font-weight: 700;
+  font-size: var(--default-font);
+  text-align: center;
+  border-radius: 4px;
+  /* width: 100%; */
+  transition: transform 0.4s ease-in-out;
+}
+
+button.reset-btn:active {
+  transform: scale(1.1);
 }
 
 .input-error {
   display: none;
+}
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 88px;
+  }
+  header {
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+    top: 0;
+  }
+
+  .container {
+    margin: 0;
+  }
+
+  header.form-completed {
+    background-color: var(--header-bg-color);
+  }
+  .logo {
+    width: 162px;
+  }
+  button.reset-btn {
+    cursor: pointer;
+  }
+
+  .main-container {
+    display: flex;
+  }
+
+  .form-section {
+    flex: 0 0 67.5%;
+  }
+
+  .total-cost-section {
+    width: calc(100% - 67.5%);
+    position: fixed;
+    height: 100%;
+    right: 0;
+    top: 88px;
+  }
+
+  .total-cost {
+    padding: 72px 32px;
+  }
+
+  .study-summary {
+    height: 940px;
+    padding: 56px 32px 0px;
+  }
 }

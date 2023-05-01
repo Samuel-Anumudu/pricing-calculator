@@ -4,7 +4,7 @@
     <div class="country-fields">
       <label v-for="(country, index) in countries" :key="index" :for="country">
         <input type="checkbox" :id="country" :value="country" v-model="selectedCountries" />
-        <span>{{ country }} {{ flags[index] }}</span>
+        <span>{{ country }}</span>
       </label>
     </div>
   </div>
@@ -25,12 +25,12 @@ export default defineComponent({
   emits: ['selectedCountriesChanged'],
   setup(_, { emit }) {
     const selectedCountries = ref<string[]>([])
-    const flags = ref<string[]>(['🇳🇬', '🇬🇭', '🇸🇳', '🇿🇦', '🇰🇪'])
+
     watch(selectedCountries, (newValue) => {
       emit('selectedCountriesChanged', newValue)
     })
 
-    return { selectedCountries, flags }
+    return { selectedCountries }
   }
 })
 </script>

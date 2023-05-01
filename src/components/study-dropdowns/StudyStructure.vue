@@ -1,11 +1,12 @@
 <template>
-  <div id="study-structure">
+  <div class="study-structure">
     <label for="studyStructure">Study structure</label>
     <select v-model="selectedStudyStructure" id="studyStructure" @change="updateStudyStructure">
       <option value="">— Select study structure</option>
       <option value="Online study">Online study</option>
       <option value="face-to-face study">face-to-face study</option>
     </select>
+    <small>Will this be an online study or physical study?</small>
   </div>
 </template>
 

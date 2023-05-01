@@ -1,5 +1,5 @@
 <template>
-  <div id="study-duration">
+  <div class="study-duration">
     <label for="duration-dropdown">Duration of each study session</label>
     <select id="duration-dropdown" v-model="selectedDuration" @change="updateDuration">
       <option value="">— Select study session duration</option>
@@ -7,6 +7,7 @@
       <option value="60">60 minutes interview</option>
       <option value="90">90 minutes interview</option>
     </select>
+    <small>How long will each study session last?</small>
   </div>
 </template>
 

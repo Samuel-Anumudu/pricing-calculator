@@ -1,94 +1,104 @@
 <template>
   <main>
-    <section id="form-section">
-      <div>
-        <h1 class="header-text">Pricing calculator</h1>
-        <p>Calculate how much it will cost to conduct a Kimoyo Research Study.</p>
-      </div>
-      <form>
-        <ServicePlans
-          :servicePlan="servicePlan"
-          @updateServicePlan:servicePlan="onChangeServicePlan"
-          :key="resetInstance"
-        />
+    <div class="main-container">
+      <section class="form-section">
+        <div class="container">
+          <div class="pricing-calculator-text">
+            <h1>Pricing calculator</h1>
+            <p>Calculate how much it will cost to conduct a Kimoyo Research Study.</p>
+          </div>
+          <form>
+            <ServicePlans
+              :servicePlan="servicePlan"
+              @updateServicePlan:servicePlan="onChangeServicePlan"
+              :key="resetInstance"
+            />
 
-        <ParticipantsCountries
-          :countries="countries"
-          @selectedCountriesChanged="onSelectedCountriesChanged"
-          :key="resetInstance"
-        />
-        <NumberOfParticipants @updateNumberOfParticipants="onInputsUpdated" :key="resetInstance" />
+            <ParticipantsCountries
+              :countries="countries"
+              @selectedCountriesChanged="onSelectedCountriesChanged"
+              :key="resetInstance"
+            />
+            <NumberOfParticipants
+              @updateNumberOfParticipants="onInputsUpdated"
+              :key="resetInstance"
+            />
 
-        <StudyDuration
-          :initialDuration="duration"
-          @updateDuration="onUpdateDuration"
-          :key="resetInstance"
-        />
+            <StudyDuration
+              :initialDuration="duration"
+              @updateDuration="onUpdateDuration"
+              :key="resetInstance"
+            />
 
-        <StudyStructure
-          :servicePlan="servicePlan"
-          :initialStudyStructure="selectedStudyStructure"
-          @updateStudyStructure="onStudyStructureSelected"
-          :key="resetInstance"
-        />
+            <StudyStructure
+              :servicePlan="servicePlan"
+              :initialStudyStructure="selectedStudyStructure"
+              @updateStudyStructure="onStudyStructureSelected"
+              :key="resetInstance"
+            />
 
-        <StudyModeration
-          :servicePlan="servicePlan"
-          :initialStudyModeration="studyModerationSelected"
-          @updateStudyModeration="onUpdateStudyModeration"
-          :key="resetInstance"
-        />
+            <StudyModeration
+              :servicePlan="servicePlan"
+              :initialStudyModeration="studyModerationSelected"
+              @updateStudyModeration="onUpdateStudyModeration"
+              :key="resetInstance"
+            />
 
-        <ProjectManagement
-          :servicePlan="servicePlan"
-          :initialSelect="projectManagementSelected"
-          @updateSelected="onUpdateSelectedProjectManagement"
-          :key="resetInstance"
-        />
+            <ProjectManagement
+              :servicePlan="servicePlan"
+              :initialSelect="projectManagementSelected"
+              @updateSelected="onUpdateSelectedProjectManagement"
+              :key="resetInstance"
+            />
 
-        <StudyTranscript
-          :servicePlan="servicePlan"
-          :initialSelect="studyTranscriptSelected"
-          @updateSelected="onUpdateStudyTranscript"
-          :key="resetInstance"
-        />
+            <StudyTranscript
+              :servicePlan="servicePlan"
+              :initialSelect="studyTranscriptSelected"
+              @updateSelected="onUpdateStudyTranscript"
+              :key="resetInstance"
+            />
 
-        <StudyReport
-          :servicePlan="servicePlan"
-          :initialSelect="studyReportSelected"
-          @updateStudyReport="onUpdateStudyReport"
-          :key="resetInstance"
-        />
+            <StudyReport
+              :servicePlan="servicePlan"
+              :initialSelect="studyReportSelected"
+              @updateStudyReport="onUpdateStudyReport"
+              :key="resetInstance"
+            />
 
-        <ResetButton text="Reset pricing selection" @click="resetFields" />
-      </form>
-    </section>
+            <ResetButton text="Reset pricing selection" @click="resetFields" />
+          </form>
+        </div>
+      </section>
+      <section class="total-cost-section">
+        <div class="total-cost">
+          <div class="container">
+            <p>Total Cost</p>
+            <h1>USD {{ totalCost }}.00</h1>
+          </div>
+        </div>
+        <div class="study-summary">
+          <div class="container">
+            <h3>Study summary</h3>
+            <p v-if="!servicePlan">
+              Your study summary will be displayed here based on your selection.
+            </p>
+            <p v-else>Based on your study selection on our {{ servicePlan }} plan</p>
 
-    <section id="cost-section">
-      <div class="total-cost">
-        <p>Total Cost</p>
-        <h1>USD {{ totalCost }}.00</h1>
-      </div>
-      <div class="study-summary">
-        <h3>Study summary</h3>
-        <p v-if="!servicePlan">
-          Your study summary will be displayed here based on your selection.
-        </p>
-        <p v-else>Based on your study selection on our {{ servicePlan }} plan</p>
-
-        <StudySummaryList
-          :selectedCountries="selectedCountries"
-          :numberOfParticipants="numberOfParticipants"
-          :additionalParticipants="additionalParticipants"
-          :duration="duration"
-          :selectedStudyStructure="selectedStudyStructure"
-          :studyModerationSelected="studyModerationSelected"
-          :projectManagementSelected="projectManagementSelected"
-          :studyTranscriptSelected="studyTranscriptSelected"
-          :studyReportSelected="studyReportSelected"
-        />
-      </div>
-    </section>
+            <StudySummaryList
+              :selectedCountries="selectedCountries"
+              :numberOfParticipants="numberOfParticipants"
+              :additionalParticipants="additionalParticipants"
+              :duration="duration"
+              :selectedStudyStructure="selectedStudyStructure"
+              :studyModerationSelected="studyModerationSelected"
+              :projectManagementSelected="projectManagementSelected"
+              :studyTranscriptSelected="studyTranscriptSelected"
+              :studyReportSelected="studyReportSelected"
+            />
+          </div>
+        </div>
+      </section>
+    </div>
   </main>
 </template>
 
@@ -133,7 +143,7 @@ export default defineComponent({
     const numberOfParticipants = ref<number | null>(null)
     const additionalParticipants = ref<number | null>(null)
     // List of countries
-    const countries = ref(['Nigeria', 'Ghana', 'Senegal', 'South Africa', 'Kenya'])
+    const countries = ref(['Country 01', 'Country 02', 'Country 03', 'Country 04', 'Country 05'])
     // Study Session Duration ref
     const duration = ref<string>('')
     // Study Structure ref

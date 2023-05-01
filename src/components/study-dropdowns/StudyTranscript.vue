@@ -1,5 +1,5 @@
 <template>
-  <div id="study-transcript">
+  <div class="study-transcript">
     <label for="studyTranscript"> Need transcripts from each session? </label>
     <select
       id="studyTranscript"
@@ -10,6 +10,7 @@
       <option value="I will need transcripts">I will need transcripts</option>
       <option value="I don't need transcripts">I don't need transcripts</option>
     </select>
+    <small>Do you need help from Kimoyo transcribing each session?</small>
   </div>
 </template>
 

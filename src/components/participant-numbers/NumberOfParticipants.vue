@@ -7,8 +7,9 @@
         id="numberOfParticipants"
         placeholder="00"
         :value="numberOfParticipantsValue"
-        @input="numberOfParticipantsValue = $event.target.value"
+        @input="handleNumberOfParticipantsInput"
       />
+      <small>A minimum of 4 participants is needed for a study</small>
     </div>
     <div class="participants-field">
       <label for="additionalParticipants">Number of additional participants</label>
@@ -19,6 +20,7 @@
         v-model="additionalParticipants"
         readonly
       />
+      <small>This must be at least 20% of total participants</small>
     </div>
   </div>
 </template>
@@ -71,11 +73,29 @@ export default defineComponent({
       }
     }
 
+    const handleNumberOfParticipantsInput = (event: Event) => {
+      const target = event.target as HTMLInputElement
+      if (target) {
+        const parsedValue = parseFloat(target.value)
+        if (isNaN(parsedValue) || parsedValue < 0 || !Number.isInteger(parsedValue)) {
+          target.value = ''
+          numberOfParticipants.value = null
+        } else {
+          numberOfParticipantsValue.value = target.value
+          updateAdditionalParticipants()
+          emit('updateNumberOfParticipants', {
+            numberOfParticipants: numberOfParticipants.value,
+            additionalParticipants: additionalParticipants.value
+          })
+        }
+      }
+    }
+
     return {
       numberOfParticipants,
       additionalParticipants,
       numberOfParticipantsValue,
-      updateAdditionalParticipants
+      handleNumberOfParticipantsInput
     }
   }
 })

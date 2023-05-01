@@ -1,5 +1,5 @@
 <template>
-  <div id="project-management">
+  <div class="project-management">
     <label for="projectManagement"> Project management & discussion guide prep </label>
     <select
       id="projectManagement"
@@ -12,6 +12,7 @@
         I need help preparing discussion guide
       </option>
     </select>
+    <small>Do you need help from Kimoyo with a discussion prep?</small>
   </div>
 </template>
 

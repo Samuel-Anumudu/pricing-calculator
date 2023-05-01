@@ -1,11 +1,12 @@
 <template>
-  <div id="study-moderation">
+  <div class="study-moderation">
     <label for="studyModeration"> Study moderation </label>
     <select id="studyModeration" v-model="studyModerationSelected" @change="updateStudyModeration">
       <option value="">— Select study moderation</option>
       <option value="I will moderate the sessions">I will moderate the sessions</option>
       <option value="Kimoyo moderates">Kimoyo moderates</option>
     </select>
+    <small>Do you need help from Kimoyo moderating this study?</small>
   </div>
 </template>
 

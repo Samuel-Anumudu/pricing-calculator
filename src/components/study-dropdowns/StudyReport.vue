@@ -1,11 +1,12 @@
 <template>
-  <div id="study-report">
+  <div class="study-report">
     <label for="studyReport">Study report & analysis</label>
     <select id="studyReport" v-model="studyReportSelected" @change="updateStudyReport">
       <option value="">— Select study report & analysis</option>
       <option value="I will need a study report">I will need a study report</option>
       <option value="I don't need a study report">I don't need a study report</option>
     </select>
+    <small>Will you need help analyzing this study findings and insights?</small>
   </div>
 </template>
 

@@ -1,15 +1,17 @@
 <template>
   <div id="service-plans">
-    <label for="basic">
-      <input type="radio" id="basic" value="basic" v-model="selectedPlan" /> Basic
-    </label>
-    <label for="standard">
-      <input type="radio" id="standard" value="standard" v-model="selectedPlan" /> Standard
-    </label>
-    <label for="premium">
-      <input type="radio" id="premium" value="premium" v-model="selectedPlan" /> Premium
-    </label>
-
+    <div class="service-plan-controls">
+      <p>Select a Kimoyo service plan</p>
+      <label for="basic">
+        <input type="radio" id="basic" value="basic" v-model="selectedPlan" /> Basic
+      </label>
+      <label for="standard">
+        <input type="radio" id="standard" value="standard" v-model="selectedPlan" /> Standard
+      </label>
+      <label for="premium">
+        <input type="radio" id="premium" value="premium" v-model="selectedPlan" /> Premium
+      </label>
+    </div>
     <div class="service-plan-desc">
       <p v-if="servicePlan === 'basic'">
         📣 A description for a basic Kimoyo service plan and what it entails.

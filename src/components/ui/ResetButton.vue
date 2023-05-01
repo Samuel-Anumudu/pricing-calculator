@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <button type="button">{{ text }}</button>
-  </div>
+  <button class="reset-btn" type="button">{{ text }}</button>
 </template>
 
 <script lang="ts">
