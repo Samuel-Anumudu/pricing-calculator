@@ -245,6 +245,7 @@ button.reset-btn:active {
   line-height: 17px;
   outline: none;
   font-size: 14px;
+  border-radius: 4px;
 }
 
 .number-of-participants .participants-field input {
