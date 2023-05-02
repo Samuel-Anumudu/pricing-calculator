@@ -37,7 +37,7 @@ This is my Implementation to the pricing calculator app using Vue.js that allows
 
 ## Project Setup
 
-The see this project, you have to clone this reposition and run the following commands:
+The see this project, you have to clone this repository and run the following commands:
 
 ```sh
 npm install
